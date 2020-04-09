@@ -148,7 +148,7 @@ final class SensorManager {
 			// If the magnetometer isn't available
 			if !_self.motionManager.isMagnetometerAvailable {
 				// In debug add a fake magnetometer data using the user's acceleration
-				#if DEBUGSS
+				#if DEBUG
 				magnetometer = SensorData(
 					type: .magnetometer,
 					x: deviceMotion.userAcceleration.x,
