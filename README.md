@@ -1,10 +1,5 @@
 # No Face-Touch project
 
-## watchOS App
-
-
-
-## Main repository's README
 ## Installation and Usage
 
 ### Website
@@ -44,9 +39,9 @@ Considering that the magnetic field shows substantial fluctutations in the envir
      <td>Main Screen</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/sirslab/COVID-19-DoNTYF-wear/blob/master/images/Hand_choice_block.png" target="_blank"><img src="images/Hand_choice_block.png" width=270></a></td>
-    <td><a href="https://github.com/sirslab/COVID-19-DoNTYF-wear/blob/master/images/Block_calib_screen.png" target="_blank"><img src="images/Block_calib_screen.png" width=270></a></td>
-    <td><a href="https://github.com/sirslab/COVID-19-DoNTYF-wear/blob/master/images/Block_main_screen.png" target="_blank"><img src="images/Block_main_screen.png" width=270></a></td>
+    <td><a href="images/Hand_choice_block.png" target="_blank"><img src="images/Hand_choice_block.png" width=270></a></td>
+    <td><a href="images/Block_calib_screen.png" target="_blank"><img src="images/Block_calib_screen.png" width=270></a></td>
+    <td><a href="images/Block_main_screen.png" target="_blank"><img src="images/Block_main_screen.png" width=270></a></td>
   </tr>
  </table>
 
@@ -59,3 +54,15 @@ yaw = 0
 ```
 where acc[0], acc[1] and acc[2] represent the accelerations sensed along the x, y and z axes, respectively.
 Yaw is not required for our purpose.
+
+
+### TODOs
+
+1. During the hand selection phase, fill the buffer with Norm of the magnetometer readings. Then calculate average (AVG) and standard deviation (STDDEV). 
+To calculate the standard deviation use either the function implemeted for the buffer structure if available (e.g. buffer.std) or the standard formula:
+![](images/STDDEV.png)
+where RAW(t) is the current raw sample in the buffer.
+2. After pressing the CALIBRATE button (this should work both during initial calibration and after pressing the calibration button in the main activity) stop filling the offset buffer. Instead, look for the maximum value measured in 5 seconds (always subtracting the offset from the raw value). At the end of the calibration phase, our calibration/scaling factor is given by the MAXIMUM value recorded divided by the standard deviation (STDDEV) previously measured.
+calFactor = MAX/STDDEV
+3. In the main activity, when the accelerometer condition is checked and the current value (raw norm - offset) is higher than (STAND DEV )*(calibration factor), send an alert.
+4. The calibration factor can be automatically calculatd by pressing the CALIBRATE button in the main activity screen, and manually adjusted using the seekbar or (+/-) buttons.
